@@ -7,8 +7,8 @@
 ####
 
 team_name = ' Real OG' # Only 10 chars displayed.
-strategy_name = 'No snitches'
-strategy_description = ' Always collude'
+strategy_name = '1/5'
+strategy_description = ' After 4 colludes betray'
     
 def move(my_history, their_history, my_score, their_score):
     ''' Arguments accepted: my_history, their_history are strings.
@@ -47,22 +47,17 @@ def test_move(my_history, their_history, my_score, their_score, result):
 
 if __name__ == '__main__':
      
-    # Test 1: Betray on first move.
+    # Test 1: Collude every 4 times.
     if test_move(my_history='',
               their_history='', 
               my_score=0,
               their_score=0,
-              result='b'):
+              result='c'):
          print 'Test passed'
+         
      # Test 2: Continue betraying if they collude despite being betrayed.
-    test_move(my_history='bbb',
-              their_history='ccc', 
-              # Note the scores are for testing move().
-              # The history and scores don't need to match unless
-              # that is relevant to the test of move(). Here,
-              # the simulation (if working correctly) would have awarded 
-              # 300 to me and -750 to them. This test will pass if and only if
-              # move('bbb', 'ccc', 0, 0) returns 'b'.
+    test_move(my_history='cccc',
+              their_history='', 
               my_score=0, 
               their_score=0,
               result='b')             
