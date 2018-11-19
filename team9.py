@@ -7,8 +7,8 @@
 ####
 
 team_name = ' Real OG' # Only 10 chars displayed.
-strategy_name = '1/5'
-strategy_description = ' After 4 colludes betray'
+strategy_name = 'Big Payback'
+strategy_description = ' If they betray last turn then I betray next turn'
     
 def move(my_history, their_history, my_score, their_score):
     ''' Arguments accepted: my_history, their_history are strings.
@@ -47,17 +47,17 @@ def test_move(my_history, their_history, my_score, their_score, result):
 
 if __name__ == '__main__':
      
-    # Test 1: Collude every 4 times.
+    # Collude always.
     if test_move(my_history='',
-              their_history='', 
+              their_history='c', 
               my_score=0,
               their_score=0,
               result='c'):
          print 'Test passed'
          
-     # Test 2: Continue betraying if they collude despite being betrayed.
-    test_move(my_history='cccc',
-              their_history='', 
+     # If there history reads betray last turn the betray next turn.
+    test_move(my_history='',
+              their_history='b', 
               my_score=0, 
               their_score=0,
               result='b')             
