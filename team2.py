@@ -9,15 +9,26 @@
 team_name = 'The Zest Squad' # Only 10 chars displayed.
 strategy_name = 'The name the team gives to this strategy'
 strategy_description = 'How does this strategy decide?'
+total_history = []
+
+
     
 def move(my_history, their_history, my_score, their_score):
+    bamount = 0
     ''' Arguments accepted: my_history, their_history are strings.
     my_score, their_score are ints.
     
     Make my move.
     Returns 'c' or 'b'. 
     '''
-
+    total_history += their_history
+    for item in their_history: 
+        if item == 'b': bamount += 1
+      
+    if bamount >= (len(their_history))/2: return 'b'
+    else: return 'c'
+        
+    
     # my_history: a string with one letter (c or b) per round that has been played with this opponent.
     # their_history: a string of the same length as history, possibly empty. 
     # The first round between these two players is my_history[0] and their_history[0].
@@ -26,7 +37,7 @@ def move(my_history, their_history, my_score, their_score):
     # Analyze my_history and their_history and/or my_score and their_score.
     # Decide whether to return 'c' or 'b'.
     
-    return 'c'
+    else: return 'c'
 
     
 def test_move(my_history, their_history, my_score, their_score, result):
