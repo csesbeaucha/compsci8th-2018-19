@@ -46,7 +46,7 @@ modules = [example0, example1, example2, example3, example4, example5, example6,
 team0, team1, team2, team3, team4, team5, team6, team7, team8, team9, team10, 
 team11, team12, team13, team14]
 for module in modules:
-    importlib.reload(module)
+    reload(module)
     print ('reloaded',module)
     for required_variable in ['team_name', 'strategy_name', 'strategy_description']:
         if not hasattr(module, required_variable):
@@ -107,7 +107,7 @@ def play_iterative_rounds(player1, player2):
     Returns 4-tuple, for example ('cc', 'bb', -200, 600) 
     but with much longer strings 
     '''
-    number_of_rounds = 150#random.randint(100, 200)
+    number_of_rounds = random.randint(100, 200)
     moves1 = ''
     moves2 = ''
     score1 = 0

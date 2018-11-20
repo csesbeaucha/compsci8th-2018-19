@@ -8,13 +8,13 @@
 
 team_name = 'OMEGA3 OIL' # Only 10 chars displayed.
 strategy_name = 'The bestest strategy'
-strategy_description = 'Collude but betray if betrayed and betray after 199 rounds'
-    
+strategy_description = 'Collude but betray if betrayed and betray after 198 rounds'
+
 def move(my_history, their_history, my_score, their_score):
 	if('b' in their_history):
 		return 'b'
 	else:
-		if(len(my_history) == 199):
+		if(len(my_history) == 198):
 			return 'b'
 		else:
 			return 'c'
