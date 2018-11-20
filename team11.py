@@ -6,6 +6,8 @@
 #     move: A function that returns 'c' or 'b'
 ####
 
+import random
+
 team_name = 'Team 11' # Only 10 chars displayed.
 strategy_name = 'The name the team gives to this strategy'
 strategy_description = 'How does this strategy decide?'
@@ -21,10 +23,18 @@ def move(my_history, their_history, my_score, their_score):
         return 'b'
     else:
         return 'b' '''
-        
-    if their_score=='':
+
+    '''if their_score=='':
         return 'c'
-        
+    elif their_history[-1]<=0:
+       a=random.choice['c','b']
+       return a'''
+    
+    if their_history<=0:
+        return 'c'
+    else:
+        return 'b'
+    
     
     # my_history: a string with one letter (c or b) per round that has been played with this opponent.
     # their_history: a string of the same length as history, possibly empty. 
