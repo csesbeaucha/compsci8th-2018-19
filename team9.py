@@ -6,9 +6,15 @@
 #     move: A function that returns 'c' or 'b'
 ####
 
-team_name = 'The name the team gives to itself' # Only 10 chars displayed.
-strategy_name = 'The name the team gives to this strategy'
-strategy_description = 'How does this strategy decide?'
+
+team_name = 'Real OG' # Only 10 chars displayed.
+strategy_name = 'No snitches'
+strategy_description = 'Collude except the last 20'
+
+team_name = ' Real OG' # Only 10 chars displayed.
+strategy_name = 'Big Payback'
+strategy_description = ' If they betray last turn then I betray next turn'
+
     
 def move(my_history, their_history, my_score, their_score):
     ''' Arguments accepted: my_history, their_history are strings.
@@ -25,8 +31,11 @@ def move(my_history, their_history, my_score, their_score):
     
     # Analyze my_history and their_history and/or my_score and their_score.
     # Decide whether to return 'c' or 'b'.
-    
-    return 'c'
+    if  'b' in their_history:
+        return 'b'
+    else:
+        return 'c'
+        
 
     
 def test_move(my_history, their_history, my_score, their_score, result):
@@ -47,22 +56,17 @@ def test_move(my_history, their_history, my_score, their_score, result):
 
 if __name__ == '__main__':
      
-    # Test 1: Betray on first move.
+    # Collude always.
     if test_move(my_history='',
-              their_history='', 
+              their_history='c', 
               my_score=0,
               their_score=0,
-              result='b'):
+              result='c'):
          print 'Test passed'
-     # Test 2: Continue betraying if they collude despite being betrayed.
-    test_move(my_history='bbb',
-              their_history='ccc', 
-              # Note the scores are for testing move().
-              # The history and scores don't need to match unless
-              # that is relevant to the test of move(). Here,
-              # the simulation (if working correctly) would have awarded 
-              # 300 to me and -750 to them. This test will pass if and only if
-              # move('bbb', 'ccc', 0, 0) returns 'b'.
+         
+     # If there history reads betray last turn the betray next turn.
+    test_move(my_history='',
+              their_history='b', 
               my_score=0, 
               their_score=0,
               result='b')             
