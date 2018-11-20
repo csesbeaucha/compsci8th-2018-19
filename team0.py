@@ -10,6 +10,9 @@ team_name = 'Team Da Best' # Only 10 chars displayed.
 strategy_name = 'The name the team gives to this strategy'
 strategy_description = 'How does this strategy decide?'
     
+
+import random
+
 def move(my_history, their_history, my_score, their_score):
     ''' Arguments accepted: my_history, their_history are strings.
     my_score, their_score are ints.
@@ -17,6 +20,34 @@ def move(my_history, their_history, my_score, their_score):
     Make my move.
     Returns 'c' or 'b'. 
     '''
+    
+    for a in their_history:
+        if their_history[a]=='':
+            j=random.choose['b','c']
+            return j
+    while their_history[a]=="b":
+        return 'b'
+    for c in their_history:
+        if their_history[a]=='':
+            return 'b'  
+            
+    
+    
+   # if my_score>=0:
+    #    return 'c'
+   # elif my_score<0:
+    #    return 'b'
+    
+    
+   # for a in their_history:
+    #    if their_history[a]=='b':
+     #       if their_history[a+1]=='b':
+      #          return 'b'
+    
+    
+    
+    
+    
 
     # my_history: a string with one letter (c or b) per round that has been played with this opponent.
     # their_history: a string of the same length as history, possibly empty. 

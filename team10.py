@@ -25,6 +25,40 @@ def move(my_history, their_history, my_score, their_score):
     
     # Analyze my_history and their_history and/or my_score and their_score.
     # Decide whether to return 'c' or 'b'.
+    b_list=[]
+    c_list=[]
+    if len(their_history)==0:
+        return 'c'
+    else:
+        for item in their_history:
+            if item=='b':
+                b_list.append(item)
+            else:
+                c_list.append(item)
+        if len(b_list)>len(c_list):
+            return 'b'
+        else:
+            return 'c'
+
+    b_list=[]
+    c_list=[]
+    recent_history=their_history[-6:-1]
+    if len(their_history)==0:
+        for item in recent_history:
+            if item=='b':
+                b_list.append(item)
+            else:
+                c_list.append(item)
+        if len(b_list)>len(c_list):
+            return 'b'
+        else:
+            return 'c' 
+
+
+    if abs(my_score-their_score)>-200:
+        return 'b'
+    else:
+        return 'c'
     
     return 'c'
 
