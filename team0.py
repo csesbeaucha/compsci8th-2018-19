@@ -33,9 +33,16 @@ def move(my_history, their_history, my_score, their_score):
             
     
     
+   # if my_score>=0:
+    #    return 'c'
+   # elif my_score<0:
+    #    return 'b'
     
     
-    
+   # for a in their_history:
+    #    if their_history[a]=='b':
+     #       if their_history[a+1]=='b':
+      #          return 'b'
     
     
     
