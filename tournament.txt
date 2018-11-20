@@ -1,8 +1,8 @@
 --------------------------------------------------------------------------------
 Section 0 - Line up
 --------------------------------------------------------------------------------
-Player 0 (P0): E0, Collude
-        Always collude.
+Player 0 (P0):  Real OG, Big Payback
+         If they betray last turn then I betray next turn
 Player 1 (P1): E1, Betray
         Always betray.
 Player 2 (P2): E2, Alternate
@@ -15,23 +15,23 @@ Section 1 - Player vs. Player
 --------------------------------------------------------------------------------
 Each column shows pts/round earned against each other player:
              P0     P1     P2     P3
-vs. P0 :      0    100     49      0
-vs. P1 :   -500      0   -376   -376
-vs. P2 :   -248    -75      0   -201
-vs. P3 :      0    -75   -198      0
-TOTAL  :   -748    -50   -525   -577
+vs. P0 :      0   -248   -372      0
+vs. P1 :   -252      0   -376   -376
+vs. P2 :    -76    -74      0   -199
+vs. P3 :      0    -74   -199      0
+TOTAL  :   -328   -396   -947   -575
 --------------------------------------------------------------------------------
 Section 2 - Leaderboard
 --------------------------------------------------------------------------------
 Average points per round:
 Team name (P#):  Score      with strategy name
-E1        (P1):        -13 points with Betray                                  
-E2        (P2):       -132 points with Alternate                               
-E3        (P3):       -145 points with Collude but retaliate                   
-E0        (P0):       -187 points with Collude                                 
+ Real OG  (P0):        -82 points with Big Payback                             
+E1        (P1):        -99 points with Betray                                  
+E3        (P3):       -144 points with Collude but retaliate                   
+E2        (P2):       -237 points with Alternate                               
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
-example0--------------------------------------------------------------------------------
+team9--------------------------------------------------------------------------------
 ####
 # Each team's file must define four tokens:
 #     team_name: a string
@@ -40,24 +40,64 @@ example0------------------------------------------------------------------------
 #     move: A function that returns 'c' or 'b'
 ####
 
-team_name = 'E0'
-strategy_name = 'Collude'
-strategy_description = 'Always collude.'
+team_name = ' Real OG' # Only 10 chars displayed.
+strategy_name = 'Big Payback'
+strategy_description = ' If they betray last turn then I betray next turn'
     
 def move(my_history, their_history, my_score, their_score):
-    '''Make my move based on the history with this player.
+    ''' Arguments accepted: my_history, their_history are strings.
+    my_score, their_score are ints.
     
-    history: a string with one letter (c or b) per round that has been played with this opponent.
-    their_history: a string of the same length as history, possibly empty. 
-    The first round between these two players is my_history[0] and their_history[0]
-    The most recent round is my_history[-1] and their_history[-1]
-    
-    Returns 'c' or 'b' for collude or betray.
+    Make my move.
+    Returns 'c' or 'b'. 
     '''
+
+    # my_history: a string with one letter (c or b) per round that has been played with this opponent.
+    # their_history: a string of the same length as history, possibly empty. 
+    # The first round between these two players is my_history[0] and their_history[0].
+    # The most recent round is my_history[-1] and their_history[-1].
     
-    # This player always colludes.
-    return 'c'
-    --------------------------------------------------------------------------------
+    # Analyze my_history and their_history and/or my_score and their_score.
+    # Decide whether to return 'c' or 'b'.
+    if  'b' in their_history:
+        return 'b'
+    else:
+        return 'c'
+        
+
+    
+def test_move(my_history, their_history, my_score, their_score, result):
+    '''calls move(my_history, their_history, my_score, their_score)
+    from this module. Prints error if return value != result.
+    Returns True or False, dpending on whether result was as expected.
+    '''
+    real_result = move(my_history, their_history, my_score, their_score)
+    if real_result == result:
+        return True
+    else:
+        print("move(" +
+            ", ".join(["'"+my_history+"'", "'"+their_history+"'",
+                       str(my_score), str(their_score)])+
+            ") returned " + "'" + real_result + "'" +
+            " and should have returned '" + result + "'")
+        return False
+
+if __name__ == '__main__':
+     
+    # Collude always.
+    if test_move(my_history='',
+              their_history='c', 
+              my_score=0,
+              their_score=0,
+              result='c'):
+         print 'Test passed'
+         
+     # If there history reads betray last turn the betray next turn.
+    test_move(my_history='',
+              their_history='b', 
+              my_score=0, 
+              their_score=0,
+              result='b')             --------------------------------------------------------------------------------
 example1--------------------------------------------------------------------------------
 ####
 # Each team's file must define four tokens:
@@ -145,60 +185,24 @@ def move(my_history, their_history, my_score, their_score):
         return 'b' # Betray if they were severely punished last time,
     else:
         return 'c' # otherwise collude.--------------------------------------------------------------------------------
-Section 3 - Game Data for Team E0
+Section 3 - Game Data for Team  Real OG
 --------------------------------------------------------------------------------
--500 pt/round: E0(P0) "Collude"
-100 pt/round: E1(P1) "Betray"
-cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
-BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
+-252 pt/round:  Real OG(P0) "Big Payback"
+-248 pt/round: E1(P1) "Betray"
+cbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+Bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
 
-cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
-BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
+bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
 
-cccccccccccccccccccccccc
-BBBBBBBBBBBBBBBBBBBBBBBB
-
---------------------------------------------------------------------------------
--248 pt/round: E0(P0) "Collude"
-49 pt/round: E2(P2) "Alternate"
-CcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCc
-CBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCB
-
-CcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcC
-CBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBC
+bbbbbb
+bbbbbb
 
 --------------------------------------------------------------------------------
-0 pt/round: E0(P0) "Collude"
-0 pt/round: E3(P3) "Collude but retaliate"
-CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
-CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
-
-CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
-CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
-
-CCCCCCCCCC
-CCCCCCCCCC
-
---------------------------------------------------------------------------------
---------------------------------------------------------------------------------
-Section 3 - Game Data for Team E1
---------------------------------------------------------------------------------
-100 pt/round: E1(P1) "Betray"
--500 pt/round: E0(P0) "Collude"
-BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
-cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
-
-BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
-cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
-
-BBBBBBBBBBBBBBBBBBBBBBBB
-cccccccccccccccccccccccc
-
---------------------------------------------------------------------------------
--75 pt/round: E1(P1) "Betray"
--376 pt/round: E2(P2) "Alternate"
-BbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBb
-cbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcb
+-76 pt/round:  Real OG(P0) "Big Payback"
+-372 pt/round: E2(P2) "Alternate"
+CcBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBb
+CBcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcb
 
 BbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBb
 cbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcb
@@ -207,7 +211,43 @@ BbBbBbBbBbBbBbBbBbBbBbB
 cbcbcbcbcbcbcbcbcbcbcbc
 
 --------------------------------------------------------------------------------
--75 pt/round: E1(P1) "Betray"
+0 pt/round:  Real OG(P0) "Big Payback"
+0 pt/round: E3(P3) "Collude but retaliate"
+CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
+CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
+
+CCCCCCCCCCCCCCCCCCCCCCCCCCCC
+CCCCCCCCCCCCCCCCCCCCCCCCCCCC
+
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+Section 3 - Game Data for Team E1
+--------------------------------------------------------------------------------
+-248 pt/round: E1(P1) "Betray"
+-252 pt/round:  Real OG(P0) "Big Payback"
+Bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+cbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+
+bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+
+bbbbbb
+bbbbbb
+
+--------------------------------------------------------------------------------
+-74 pt/round: E1(P1) "Betray"
+-376 pt/round: E2(P2) "Alternate"
+BbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBb
+cbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcb
+
+BbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBb
+cbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcb
+
+BbBbB
+cbcbc
+
+--------------------------------------------------------------------------------
+-74 pt/round: E1(P1) "Betray"
 -376 pt/round: E3(P3) "Collude but retaliate"
 BbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBb
 cbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcb
@@ -215,26 +255,17 @@ cbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcb
 BbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBb
 cbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcb
 
-BbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbB
-cbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbc
+BbBbBbBbBbBbB
+cbcbcbcbcbcbc
 
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 Section 3 - Game Data for Team E2
 --------------------------------------------------------------------------------
-49 pt/round: E2(P2) "Alternate"
--248 pt/round: E0(P0) "Collude"
-CBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCB
-CcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCc
-
-CBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBC
-CcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcC
-
---------------------------------------------------------------------------------
--376 pt/round: E2(P2) "Alternate"
--75 pt/round: E1(P1) "Betray"
-cbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcb
-BbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBb
+-372 pt/round: E2(P2) "Alternate"
+-76 pt/round:  Real OG(P0) "Big Payback"
+CBcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcb
+CcBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBb
 
 cbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcb
 BbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBb
@@ -243,54 +274,63 @@ cbcbcbcbcbcbcbcbcbcbcbc
 BbBbBbBbBbBbBbBbBbBbBbB
 
 --------------------------------------------------------------------------------
--198 pt/round: E2(P2) "Alternate"
--201 pt/round: E3(P3) "Collude but retaliate"
+-376 pt/round: E2(P2) "Alternate"
+-74 pt/round: E1(P1) "Betray"
+cbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcb
+BbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBb
+
+cbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcb
+BbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBb
+
+cbcbc
+BbBbB
+
+--------------------------------------------------------------------------------
+-199 pt/round: E2(P2) "Alternate"
+-199 pt/round: E3(P3) "Collude but retaliate"
 CBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcB
 CcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBc
 
 cBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcB
 BcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBc
 
-cBcBcBcBcBcB
-BcBcBcBcBcBc
+cBcBc
+BcBcB
 
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 Section 3 - Game Data for Team E3
 --------------------------------------------------------------------------------
 0 pt/round: E3(P3) "Collude but retaliate"
-0 pt/round: E0(P0) "Collude"
+0 pt/round:  Real OG(P0) "Big Payback"
 CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
 CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
 
-CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
-CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
-
-CCCCCCCCCC
-CCCCCCCCCC
+CCCCCCCCCCCCCCCCCCCCCCCCCCCC
+CCCCCCCCCCCCCCCCCCCCCCCCCCCC
 
 --------------------------------------------------------------------------------
 -376 pt/round: E3(P3) "Collude but retaliate"
--75 pt/round: E1(P1) "Betray"
+-74 pt/round: E1(P1) "Betray"
 cbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcb
 BbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBb
 
 cbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcb
 BbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBb
 
-cbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbc
-BbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbB
+cbcbcbcbcbcbc
+BbBbBbBbBbBbB
 
 --------------------------------------------------------------------------------
--201 pt/round: E3(P3) "Collude but retaliate"
--198 pt/round: E2(P2) "Alternate"
+-199 pt/round: E3(P3) "Collude but retaliate"
+-199 pt/round: E2(P2) "Alternate"
 CcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBc
 CBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcB
 
 BcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBc
 cBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcB
 
-BcBcBcBcBcBc
-cBcBcBcBcBcB
+BcBcB
+cBcBc
 
 --------------------------------------------------------------------------------
