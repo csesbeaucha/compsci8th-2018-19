@@ -7,9 +7,6 @@
 ####
 
 
-team_name = 'Real OG' # Only 10 chars displayed.
-strategy_name = 'No snitches'
-strategy_description = 'Collude except the last 20'
 
 team_name = ' Real OG' # Only 10 chars displayed.
 strategy_name = 'Big Payback'
